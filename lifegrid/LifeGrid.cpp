@@ -25,8 +25,10 @@ std::vector<std::vector<int>> LifeGrid::update() {
                 // new cells appear (dead, 3 neighbors or more)
                 if (neighbors < 2) {
                     output_row.push_back(0);
-                } else if (neighbors == 2) {
+                } else if (neighbors == 2 || neighbors == 3) {
                     output_row.push_back(1);
+                } else {
+                    output_row.push_back(0);
                 }
             } else {
                 output_row.push_back(0);
