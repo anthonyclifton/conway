@@ -31,7 +31,11 @@ std::vector<std::vector<int>> LifeGrid::update() {
                     output_row.push_back(0);
                 }
             } else {
-                output_row.push_back(0);
+                if (neighbors == 3) {
+                    output_row.push_back(1);
+                } else {
+                    output_row.push_back(0);
+                }
             }
             ++colIndex;
         }

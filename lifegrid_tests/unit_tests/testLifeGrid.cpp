@@ -69,6 +69,21 @@ TEST(lifegrid, update_method_kills_overpopulated_cells) {
     EXPECT_EQ(expected_grid, updated_grid);
 }
 
+TEST(lifegrid, update_method_generates_new_cells) {
+    std::vector<std::vector<int>> starting_grid = {
+            {1, 1},
+            {1, 0}
+    };
+    std::vector<std::vector<int>> expected_grid = {
+            {1, 1},
+            {1, 1}
+    };
+    LifeGrid lifeGrid;
+    lifeGrid.grid = starting_grid;
+    std::vector<std::vector<int>> updated_grid = lifeGrid.update();
+    EXPECT_EQ(expected_grid, updated_grid);
+}
+
 TEST(lifegrid, count_neighbors_returns_0_when_no_neighbors) {
     std::vector<std::vector<int>> current_grid = {{1}};
     LifeGrid lifeGrid;
