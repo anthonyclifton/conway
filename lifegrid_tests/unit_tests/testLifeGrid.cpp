@@ -17,16 +17,6 @@ protected:
     }
 };
 
-TEST(lifegrid, constructor_exists) {
-    LifeGrid lifeGrid;
-    EXPECT_EQ(4, lifeGrid.add(2, 2));
-}
-
-TEST(lifegrid, constructor_something) {
-    LifeGrid lifeGrid;
-    EXPECT_NE(6, lifeGrid.add(2, 2));
-}
-
 TEST(lifegrid, update_method_kills_lonely_cells) {
     std::vector<std::vector<int>> starting_grid = {{1}, {0}};
     std::vector<std::vector<int>> expected_grid = {{0}, {0}};

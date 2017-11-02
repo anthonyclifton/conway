@@ -15,7 +15,6 @@ public:
     LifeGrid();
     std::vector<std::vector<int>> update();
     int countNeighbors(int rowIndex, int colIndex);
-    int add(int x, int y);
 };
 
 #endif //LEARNINGCPLUSPLUS_LIFEGRID_H

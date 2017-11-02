@@ -6,10 +6,6 @@
 
 LifeGrid::LifeGrid() {};
 
-int LifeGrid::add (int x, int y) {
-    return x + y;
-}
-
 std::vector<std::vector<int>> LifeGrid::update() {
     std::vector<std::vector<int>> output;
     int rowIndex = 0;
@@ -42,6 +38,7 @@ std::vector<std::vector<int>> LifeGrid::update() {
         output.push_back(output_row);
         ++rowIndex;
     }
+    grid = output;
     return output;
 }
 
