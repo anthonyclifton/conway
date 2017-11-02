@@ -19,8 +19,14 @@ std::vector<std::vector<int>> LifeGrid::update() {
         for(int cell: row) {
             int neighbors = countNeighbors(rowIndex, colIndex);
             if (cell == 1) {
+                // lonely cells die (alive, less than 2 neighbors)
+                // happy cells live (alive, 2 or 3 neighbors)
+                // crowded cells die (alive, more than 3 neighbors)
+                // new cells appear (dead, 3 neighbors or more)
                 if (neighbors < 2) {
                     output_row.push_back(0);
+                } else if (neighbors == 2) {
+                    output_row.push_back(1);
                 }
             } else {
                 output_row.push_back(0);
