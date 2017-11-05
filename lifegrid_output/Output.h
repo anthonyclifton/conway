@@ -14,12 +14,12 @@ class Output {
     const int STARTING_Y = 4;
 
 public:
-    void setup(std::vector<std::vector<int>> &grid);
-    void draw(std::vector<std::vector<int>> grid, int generation);
+    void setup(std::vector<std::vector<Cell>> &grid);
+    void draw(std::vector<std::vector<Cell>> grid, int generation);
     void teardown();
 
 private:
-    void drawOutline(std::vector<std::vector<int>> grid);
+    void drawOutline(std::vector<std::vector<Cell>> grid);
 };
 
 

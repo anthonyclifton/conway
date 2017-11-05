@@ -6,17 +6,18 @@
 #define CONWAY_LIFEGRID_H
 
 #include <vector>
+#include "Cell.h"
 
 class LifeGrid {
 
 public:
     LifeGrid();
-    std::vector<std::vector<int>> update(std::vector<std::vector<int>> grid);
-    int countNeighbors(int rowIndex, int colIndex, std::vector<std::vector<int>> grid);
-    int countAlive(std::vector<std::vector<int>> grid);
+    std::vector<std::vector<Cell>> update(std::vector<std::vector<Cell>> grid);
+    int countNeighbors(Cell cell, std::vector<std::vector<Cell>> grid);
+    int countAlive(std::vector<std::vector<Cell>> grid);
 
 private:
-    bool isNotMe(int myX, int myY, int theirX, int theirY);
+    bool isNotMe(Cell cell, int theirX, int theirY);
 };
 
 #endif //LEARNINGCPLUSPLUS_LIFEGRID_H

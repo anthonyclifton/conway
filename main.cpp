@@ -4,6 +4,7 @@
 #include <csignal>
 #include <chrono>
 #include <thread>
+#include <Cell.h>
 
 #include "Loader.h"
 #include "LifeGrid.h"
@@ -36,20 +37,19 @@ int main( int argc,
     int generations = 0;
 
     std::string filePath = argv[1];
-    std::vector<std::vector<int>> startingGrid = loader.loadGrid(filePath);
+    std::vector<std::vector<Cell>> startingGrid = loader.loadGrid(filePath);
 
     output.setup(startingGrid);
 
     output.draw(startingGrid, 0);
     sleep(1);
 
-    std::vector<std::vector<int>> latestGrid = startingGrid;
+    std::vector<std::vector<Cell>> latestGrid = startingGrid;
 
     while(lifeGrid.countAlive(latestGrid) > 0) {
         generations++;
         latestGrid = lifeGrid.update(latestGrid);
         output.draw(latestGrid, generations);
-//        sleep(1);
 
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
 

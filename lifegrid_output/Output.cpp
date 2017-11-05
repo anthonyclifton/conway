@@ -5,13 +5,14 @@
 #include <cstdlib>
 #include <cstdio>
 #include <string>
+#include <Cell.h>
 #include "ncurses.h"
 
 #include "Output.h"
 
 WINDOW * mainwin;
 
-void Output::setup(std::vector<std::vector<int>> &grid) {
+void Output::setup(std::vector<std::vector<Cell>> &grid) {
 
     // Initialize ncurses
     if ( (mainwin = initscr()) == nullptr ) {
@@ -22,18 +23,14 @@ void Output::setup(std::vector<std::vector<int>> &grid) {
     drawOutline(grid);
 }
 
-void Output::draw(std::vector<std::vector<int>> grid, int generation) {
+void Output::draw(std::vector<std::vector<Cell>> grid, int generation) {
     long height = grid.size();
     long width = grid[0].size();
-    int rowIndex = 0;
-    for(std::vector<int> row: grid) {
-        std::vector<int> output_row;
-        int colIndex = 0;
-        for (int cell: row) {
-            mvaddch(STARTING_Y + rowIndex + 1, STARTING_X + colIndex + 1, (cell) ? 'X' : ' ');
-            colIndex++;
+    for(std::vector<Cell> row: grid) {
+        std::vector<Cell> output_row;
+        for (Cell cell: row) {
+            mvaddch(STARTING_Y + cell.row + 1, STARTING_X + cell.col + 1, (cell.isAlive()) ? 'O' : ' ');
         }
-        rowIndex++;
     }
 
     mvaddstr(STARTING_Y - 2, STARTING_X - 2, "Gen: ");
@@ -49,7 +46,7 @@ void Output::teardown() {
     refresh();
 }
 
-void Output::drawOutline(std::vector<std::vector<int>> grid) {
+void Output::drawOutline(std::vector<std::vector<Cell>> grid) {
     // todo protect against emptiness, it causes seg fault
     long height = grid.size();
     long width = grid[0].size();

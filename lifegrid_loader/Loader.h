@@ -5,6 +5,7 @@
 #ifndef LIFEGRID_LOADER_H
 #define LIFEGRID_LOADER_H
 
+#include <Cell.h>
 #include "vector"
 #include "fstream"
 
@@ -12,7 +13,7 @@ class Loader {
 
 public:
     Loader();
-    std::vector<std::vector<int>> loadGrid(const std::string& filePath);
+    std::vector<std::vector<Cell>> loadGrid(const std::string& filePath);
 };
 
 

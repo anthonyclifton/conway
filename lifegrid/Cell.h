@@ -12,6 +12,8 @@ public:
     int row;
     bool alive = false;
 
+    Cell(int x, int y, bool alive);
+
     void live();
     void die();
     bool isAlive();

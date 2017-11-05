@@ -4,6 +4,8 @@
 
 #include "Cell.h"
 
+Cell::Cell(int x, int y, bool aliveness): col(x), row(y), alive(aliveness) {}
+
 void Cell::live() {
     alive = true;
 }
