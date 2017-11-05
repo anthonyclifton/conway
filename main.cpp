@@ -1,7 +1,9 @@
 #include <cstdlib>
 #include <cstdio>
 #include <unistd.h>
-#include <signal.h>
+#include <csignal>
+#include <chrono>
+#include <thread>
 
 #include "Loader.h"
 #include "LifeGrid.h"
@@ -47,7 +49,10 @@ int main( int argc,
         generations++;
         latestGrid = lifeGrid.update(latestGrid);
         output.draw(latestGrid, generations);
-        sleep(1);
+//        sleep(1);
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
         if (lifeGrid.countAlive(latestGrid) == 0) break;
     }
 
