@@ -50,7 +50,7 @@ int LifeGrid::countNeighbors(int rowIndex, int colIndex, std::vector<std::vector
 
     for(int row = start_row; row <= end_row; row++) {
         for (int col = start_col; col <= end_col; col++) {
-            if (isNotMe(col, row, rowIndex, colIndex)) {
+            if (isNotMe(col, row, colIndex, rowIndex)) {
                 if (grid[row][col] == 1) ++neighbors;
             }
         }
