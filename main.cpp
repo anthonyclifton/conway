@@ -1,38 +1,55 @@
 #include <cstdlib>
 #include <cstdio>
 #include <unistd.h>
-#include "ncurses.h"
+#include <signal.h>
 
+#include "Loader.h"
+#include "LifeGrid.h"
 #include "Output.h"
 
+Output output;
+
+void sigint_handler(int s){
+    output.teardown();
+    printf("Caught signal %d\n",s);
+    exit(1);
+
+}
+
 int main() {
-    Output output;
-    WINDOW * mainwin;
 
+    struct sigaction sigIntHandler;
+    sigIntHandler.sa_handler = sigint_handler;
+    sigemptyset(&sigIntHandler.sa_mask);
+    sigIntHandler.sa_flags = 0;
+    sigaction(SIGINT, &sigIntHandler, nullptr);
 
-    /*  Initialize ncurses  */
+    Loader loader;
+    LifeGrid lifeGrid;
+    int generations = 0;
 
-    if ( (mainwin = initscr()) == NULL ) {
-        fprintf(stderr, "Error initialising ncurses.\n");
-        exit(EXIT_FAILURE);
+    std::string filePath = "../input.csv";
+    std::vector<std::vector<int>> startingGrid = loader.loadGrid(filePath);
+
+    output.setup(startingGrid);
+
+    output.draw(startingGrid, 0);
+    sleep(1);
+
+    std::vector<std::vector<int>> latestGrid = startingGrid;
+
+    while(lifeGrid.countAlive(latestGrid) > 0) {
+        generations++;
+        latestGrid = lifeGrid.update(latestGrid);
+        output.draw(latestGrid, generations);
+        sleep(1);
+        if (lifeGrid.countAlive(latestGrid) == 0) break;
     }
 
+    sleep(1);
 
-    /*  Display "Hello, world!" in the centre of the
-	screen, call refresh() to show our changes, and
-	sleep() for a few seconds to get the full screen effect  */
+    output.teardown();
+    printf("Grid lasted for %i generations\n\n", generations);
 
-    mvaddstr(4, 4, "X");
-    mvaddstr(6, 6, "Y");
-    mvaddstr(8, 8, "Z");
-    refresh();
-    sleep(3);
-
-
-    /*  Clean up after ourselves  */
-
-    delwin(mainwin);
-    endwin();
-    refresh();
     return 0;
 }

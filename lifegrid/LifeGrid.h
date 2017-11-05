@@ -10,11 +10,13 @@
 class LifeGrid {
 
 public:
-    std::vector<std::vector<int>> grid;
-
     LifeGrid();
-    std::vector<std::vector<int>> update();
-    int countNeighbors(int rowIndex, int colIndex);
+    std::vector<std::vector<int>> update(std::vector<std::vector<int>> grid);
+    int countNeighbors(int rowIndex, int colIndex, std::vector<std::vector<int>> grid);
+    int countAlive(std::vector<std::vector<int>> grid);
+
+private:
+    bool isNotMe(int myX, int myY, int theirX, int theirY);
 };
 
 #endif //LEARNINGCPLUSPLUS_LIFEGRID_H

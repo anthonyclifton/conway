@@ -10,13 +10,16 @@
 
 class Output {
 
+    const int STARTING_X = 4;
+    const int STARTING_Y = 4;
+
 public:
-    void setup();
-    void draw(std::vector<std::vector<int>> grid);
+    void setup(std::vector<std::vector<int>> &grid);
+    void draw(std::vector<std::vector<int>> grid, int generation);
     void teardown();
 
 private:
-    void drawOutline();
+    void drawOutline(std::vector<std::vector<int>> grid);
 };
 
 
