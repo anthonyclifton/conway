@@ -16,7 +16,12 @@ void sigint_handler(int s){
 
 }
 
-int main() {
+// Number of strings in array argv
+// Array of command-line argument strings
+// Array of environment variable strings
+int main( int argc,
+          char *argv[],
+          char *envp[] ) {
 
     struct sigaction sigIntHandler;
     sigIntHandler.sa_handler = sigint_handler;
@@ -28,7 +33,7 @@ int main() {
     LifeGrid lifeGrid;
     int generations = 0;
 
-    std::string filePath = "../input.csv";
+    std::string filePath = argv[1];
     std::vector<std::vector<int>> startingGrid = loader.loadGrid(filePath);
 
     output.setup(startingGrid);
