@@ -36,36 +36,30 @@ TEST(lifegrid, update_method_leaves_happy_cells_with_2_neighbors_alive) {
     EXPECT_EQ(true, updated_grid[0][1].isAlive());
 }
 
-//TEST(lifegrid, update_method_leaves_happy_cells_with_3_neighbors_alive) {
-//    std::vector<std::vector<int>> starting_grid = {
-//            {1, 1},
-//            {1, 1}
-//    };
-//    std::vector<std::vector<int>> expected_grid = {
-//            {1, 1},
-//            {1, 1}
-//    };
-//    LifeGrid lifeGrid;
-//    std::vector<std::vector<int>> updated_grid = lifeGrid.update(starting_grid);
-//    EXPECT_EQ(expected_grid, updated_grid);
-//}
-//
-//TEST(lifegrid, update_method_kills_cells_with_4_neighbors) {
-//    std::vector<std::vector<int>> starting_grid = {
-//            {0, 1, 0},
-//            {1, 1, 1},
-//            {0, 1, 0}
-//    };
-//    std::vector<std::vector<int>> expected_grid = {
-//            {1, 1, 1},
-//            {1, 0, 1},
-//            {1, 1, 1}
-//    };
-//    LifeGrid lifeGrid;
-//    std::vector<std::vector<int>> updated_grid = lifeGrid.update(starting_grid);
-//    EXPECT_EQ(expected_grid, updated_grid);
-//}
-//
+TEST(lifegrid, update_method_leaves_happy_cells_with_3_neighbors_alive) {
+    std::vector<std::vector<Cell>> starting_grid = {
+            {Cell::Cell(0,0,true), Cell::Cell(1,0,true)},
+            {Cell::Cell(0,1,true), Cell::Cell(1,1,true)}
+    };
+    LifeGrid lifeGrid;
+    std::vector<std::vector<Cell>> updated_grid = lifeGrid.update(starting_grid);
+    EXPECT_EQ(true, updated_grid[0][0].isAlive());
+    EXPECT_EQ(true, updated_grid[1][0].isAlive());
+    EXPECT_EQ(true, updated_grid[0][1].isAlive());
+    EXPECT_EQ(true, updated_grid[1][1].isAlive());
+}
+
+TEST(lifegrid, update_method_kills_cells_with_4_neighbors) {
+    std::vector<std::vector<Cell>> starting_grid = {
+            {Cell::Cell(0,0,false), Cell::Cell(1,0,true), Cell::Cell(2,0,false)},
+            {Cell::Cell(0,1,true), Cell::Cell(1,1,true), Cell::Cell(2,1,true)},
+            {Cell::Cell(0,2,false), Cell::Cell(1,2,true), Cell::Cell(2,2,false)},
+    };
+    LifeGrid lifeGrid;
+    std::vector<std::vector<Cell>> updated_grid = lifeGrid.update(starting_grid);
+    EXPECT_EQ(false, updated_grid[1][1].isAlive());
+}
+
 //TEST(lifegrid, update_method_experiment_1) {
 //    std::vector<std::vector<int>> starting_grid = {
 //            {0, 0},
